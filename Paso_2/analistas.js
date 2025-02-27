@@ -70,23 +70,28 @@ function calculateDistanceCentroids(){
             for (let i = 0; i < centroides.length; i++) {
                 let centroide1 = centroides[i];
                 let centroide2 = (i === centroides.length - 1) ? centroides[0] : centroides[i + 1]; // El último con el primero
-
-                let distancia = turf.distance(centroide1, centroide2, { units: 'kilometers' });
-
-                console.log(`Distancia entre el centroide ${i + 1} y el centroide ${(i === centroides.length - 1) ? 1 : i + 2}: ${distancia.toFixed(2)} km`); //arreglamos la salida en dos decimales, el ultimo con el primero 
-
-                // Agregar marcadores en el mapa de cada centroide dibujado 
-                L.marker(centroide1.geometry.coordinates.reverse())
+        
+                // Revisa las coordenadas antes de calcular la distancia
+                //console.log('Centroide 1:', centroide1.geometry.coordinates);
+                //console.log('Centroide 2:', centroide2.geometry.coordinates);
+        
+                // Calcula la distancia sin usar reverse en las coordenadas
+                let distancia = turf.distance(centroide1.geometry.coordinates, centroide2.geometry.coordinates, { units: 'kilometers' });
+        
+                console.log(`Distancia entre el centroide ${i + 1} y el centroide ${(i === centroides.length - 1) ? 1 : i + 2}: ${distancia.toFixed(2)} km`);
+        
+                // Agregar marcadores en el mapa de cada centroide
+                L.marker(centroide1.geometry.coordinates) // sin reverse aquí
                   .bindPopup(`Centroide ${i + 1}`)
                   .addTo(map);
-
-                L.marker(centroide2.geometry.coordinates.reverse())
+        
+                L.marker(centroide2.geometry.coordinates) // sin reverse aquí
                   .bindPopup(`Centroide ${(i === centroides.length - 1) ? 1 : i + 2}`)
                   .addTo(map);
             }
         } else {
             console.warn("No hay suficientes centroides para calcular distancias.");
-        }
+        }        
     } else {
         console.warn("No se encontraron objetos en drawLayers.");
     }
