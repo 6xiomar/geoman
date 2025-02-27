@@ -4,7 +4,7 @@
 let centroides = document.getElementById("centroid") // se crea un objeto que esté asociado al botón 
 
 centroides.addEventListener('click', function(){
-    console.log("vamos a calcular los centroides..."); 
+    console.log("Vamos a calcular los centroides..."); 
     detectCentroids();
 })
 
@@ -13,6 +13,14 @@ centroides.addEventListener('click', function(){
 let areas = document.getElementById("areas")
 
 areas.addEventListener('click', function(){
-    console.log("vamos a calcular áreas");
+    console.log("Vamos a calcular áreas...");
     calculateAreas();  
+})
+
+// manejador para calcular distancias entre centroides
+let distancias = document.getElementById("centroid distance")
+
+distancias.addEventListener('click', function(){
+    console.log("Vamos a calcular las distancias entre los centroides...");
+    calculateDistanceCentroids();
 })
